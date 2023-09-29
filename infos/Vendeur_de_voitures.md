@@ -30,9 +30,9 @@ Le garage souhaite vendre d'autres véhicules que des voitures.
 Un client souhaite acheter une moto noire.
 Un client souhaite acheter un camion de plus de 30000km.
 
-7 - Créez une classe abstraite Vehicule qui contient les attributs communs à tous les véhicules
-8 - Créez une classe Voiture qui hérite de Vehicule
-9 - Créez une classe Moto qui hérite de Vehicule
-10 - Modifiez la classe Garage qui contient une liste de véhicules
-11 - Créez une méthode pour récupérer une sous liste de véhicules en fonction du type de véhicule
+7 - Créez une classe abstraite Vehicule qui contient les attributs communs à tous les véhicules [OK]
+8 - Créez une classe Voiture qui hérite de Vehicule [OK]
+9 - Créez une classe Moto qui hérite de Vehicule [OK]
+10 - Modifiez la classe Garage qui contient une liste de véhicules [OK]
+11 - Créez une méthode pour récupérer une sous liste de véhicules en fonction du type de véhicule 
 12 - Créez des instances de ces classes pour répondre aux besoins des différents clients

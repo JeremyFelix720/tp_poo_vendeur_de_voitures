@@ -1,5 +1,7 @@
-import { Garage } from "./Garage";
+import { Garage, typeVehicule } from "./Garage";
 import { Vehicule } from "./Vehicule";
+import { Camion } from "./vehicules/Camion";
+import { Moto } from "./vehicules/Moto";
 import { Voiture } from "./vehicules/Voiture";
 
 const voiture1: Vehicule = new Voiture(
@@ -28,20 +30,62 @@ const voiture3: Vehicule = new Voiture(
     "TB - 425 - YK",
     "verte",
     150000,
-    1300,
+    1800,
     2007
 );
 
-const tableauVoituresGarage1 = [voiture1, voiture2, voiture3];
+const moto1: Vehicule = new Moto(
+    "Suzuki",
+    "GSX-S1000GT",
+    "OY - 257 - IT",
+    "grise",
+    98000,
+    850,
+    2015
+);
 
-const garage1 = new Garage("totoAutos", tableauVoituresGarage1);
+const moto2: Vehicule = new Moto(
+    "Harley-Davidson",
+    "LiveWire",
+    "RZ - 767 - LM",
+    "noire",
+    146000,
+    1800,
+    2022
+);
+
+const camion1: Vehicule = new Camion(
+    "MAN",
+    "TGS",
+    "RU - 167 - JM",
+    "noir",
+    149000,
+    15000,
+    2017
+);
+
+const camion2: Vehicule = new Camion(
+    "MAN",
+    "TGX",
+    "PS - 341 - LG",
+    "gris",
+    54000,
+    25000,
+    2019
+);
+
+const voituresGarage1:Voiture[] = [voiture1, voiture2, voiture3];
+const motosGarage1:Moto[] = [moto1, moto2]
+const camionsGarage1:Camion[] = [camion1, camion2];
+
+const garage1 = new Garage("totoAutos", voituresGarage1, motosGarage1, camionsGarage1);
 
 console.log("Nom du garage1 : " + garage1.nom + ".");
 
-garage1.listerVoitures();
+garage1.listerVehicules(typeVehicule.voiture);
 
-garage1.trouverVoitureLaMoinsChere();
+garage1.trouverVehiculeLeMoinsCher(typeVehicule.voiture);
 
-garage1.trouverVoitureAvecLePlusDeKilometres()
+garage1.trouverVehiculeAvecLePlusDeKilometres(typeVehicule.voiture);
 
-garage1.trouverVoituresAvecLaCouleur("verte");
+garage1.trouverVehiculesAvecLaCouleur("verte", typeVehicule.voiture); // çà ne fonctionne pas...

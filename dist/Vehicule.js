@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Vehicule = void 0;
 class Vehicule {
-    constructor(marque, modele, immatriculation, couleur, kilometrage, prix, annee_mise_en_circulation) {
+    constructor(marque, modele, immatriculation, couleur, kilometrage, prix, annee_mise_en_circulation, typeVehicule) {
         this._marque = marque;
         this._modele = modele;
         this._immatriculation = immatriculation;
@@ -10,6 +10,7 @@ class Vehicule {
         this._kilometrage = kilometrage;
         this._prix = prix;
         this._annee_mise_en_circulation = annee_mise_en_circulation;
+        this._typeVehicule = typeVehicule;
     }
     get marque() {
         return this._marque;
@@ -52,6 +53,12 @@ class Vehicule {
     }
     set annee_mise_en_circulation(value) {
         this._annee_mise_en_circulation = value;
+    }
+    get typeVehicule() {
+        return this._typeVehicule;
+    }
+    set typeVehicule(value) {
+        this._typeVehicule = value;
     }
 }
 exports.Vehicule = Vehicule;

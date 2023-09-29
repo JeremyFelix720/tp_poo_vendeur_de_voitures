@@ -1,36 +1,60 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Garage = void 0;
+exports.Garage = exports.typeVehicule = void 0;
+var typeVehicule;
+(function (typeVehicule) {
+    typeVehicule["voiture"] = "voiture";
+    typeVehicule["moto"] = "moto";
+    typeVehicule["camion"] = "camion";
+})(typeVehicule || (exports.typeVehicule = typeVehicule = {}));
 class Garage {
-    constructor(nom, liste_voitures) {
+    constructor(nom, liste_voitures, liste_motos, liste_camions) {
         this._nom = nom;
         this._liste_voitures = liste_voitures;
+        this._liste_motos = liste_motos;
+        this._liste_camions = liste_camions;
     }
-    listerVoitures() {
-        let messageListeVoitures = "Liste des voitures du garage " + this._nom + " : ";
-        this.liste_voitures.forEach((voiture) => {
-            messageListeVoitures += voiture.marque + " " + voiture.modele + " " + voiture.couleur + " de " + voiture.annee_mise_en_circulation + ", ";
+    listerVehiculesParType(typeVehicule) {
+        switch (typeVehicule) {
+            case "voiture":
+                return this.liste_voitures;
+            case "moto":
+                return this.liste_motos;
+            case "camion":
+                return this.liste_camions;
+            default:
+                console.log("Le type de véhicule indiqué n'existe pas dans ce garage.");
+                break;
+        }
+    }
+    listerVehicules(typeVehicule) {
+        let messageListeVoitures = "Liste des " + typeVehicule + "s du garage " + this._nom + " : ";
+        this.listerVehiculesParType(typeVehicule).forEach((vehicule) => {
+            messageListeVoitures += vehicule.marque + " " + vehicule.modele + " " + vehicule.couleur + " de " + vehicule.annee_mise_en_circulation + ", ";
         });
         console.log(messageListeVoitures);
+        return this.listerVehiculesParType(typeVehicule);
     }
-    trouverVoitureLaMoinsChere() {
-        let tableauTrieParPrixCroissant = this.liste_voitures.sort((v1, v2) => (v1.prix - v2.prix));
-        console.log("Voiture la moins chère du garage " + this.nom + " : " + tableauTrieParPrixCroissant[0].marque + " " + tableauTrieParPrixCroissant[0].modele + " " + tableauTrieParPrixCroissant[0].couleur + " de " + tableauTrieParPrixCroissant[0].annee_mise_en_circulation + ".");
-        return tableauTrieParPrixCroissant[0];
+    trouverVehiculeLeMoinsCher(typeVehicule) {
+        let vehiculesTriesParPrixCroissants = this.listerVehiculesParType(typeVehicule).sort((v1, v2) => (v1.prix - v2.prix));
+        console.log("Véhicule de type " + typeVehicule + " le moins chère du garage " + this.nom + " : " + vehiculesTriesParPrixCroissants[0].marque + " " + vehiculesTriesParPrixCroissants[0].modele + " " + vehiculesTriesParPrixCroissants[0].couleur + " de " + vehiculesTriesParPrixCroissants[0].annee_mise_en_circulation + ".");
+        return vehiculesTriesParPrixCroissants[0];
     }
-    trouverVoitureAvecLePlusDeKilometres() {
-        let tableauTrieParKilomoletresCroissant = this.liste_voitures.sort((v1, v2) => (v2.kilometrage - v1.kilometrage));
-        console.log("Voiture avec le plus de kilomètres du garage " + this.nom + " : " + tableauTrieParKilomoletresCroissant[0].marque + " " + tableauTrieParKilomoletresCroissant[0].modele + " " + tableauTrieParKilomoletresCroissant[0].couleur + " de " + tableauTrieParKilomoletresCroissant[0].annee_mise_en_circulation + ".");
-        return tableauTrieParKilomoletresCroissant[0];
+    trouverVehiculeAvecLePlusDeKilometres(typeVehicule) {
+        let vehiculesTriesParKilometresCroissants = this.listerVehiculesParType(typeVehicule).sort((v1, v2) => (v2.kilometrage - v1.kilometrage));
+        console.log("Véhicule de type " + typeVehicule + " avec le kilomètrage le plus élevé du garage " + this.nom + " : " + vehiculesTriesParKilometresCroissants[0].marque + " " + vehiculesTriesParKilometresCroissants[0].modele + " " + vehiculesTriesParKilometresCroissants[0].couleur + " de " + vehiculesTriesParKilometresCroissants[0].annee_mise_en_circulation + ".");
+        return vehiculesTriesParKilometresCroissants[0];
     }
-    trouverVoituresAvecLaCouleur(couleur) {
-        let tableauVoitureDeCetteCouleur = this.liste_voitures.filter((voiture) => voiture.couleur == couleur);
-        let messageListeVoituresDeCetteCouleur = "Liste des voitures du garage " + this._nom + " de couleur " + couleur + " : ";
-        tableauVoitureDeCetteCouleur.forEach((voiture) => {
-            messageListeVoituresDeCetteCouleur += voiture.marque + " " + voiture.modele + ", ";
+    trouverVehiculesAvecLaCouleur(couleur, typeVehicule) {
+        let listeVehiculesDeCetteCouleur = [];
+        let messageListeVehiculesDeCetteCouleur = "Liste des " + typeVehicule + "s du garage " + this._nom + " de couleur " + couleur + " : ";
+        this.listerVehiculesParType(typeVehicule).forEach((vehicule) => {
+            if (vehicule.couleur == couleur) {
+                messageListeVehiculesDeCetteCouleur += vehicule.marque + " " + vehicule.modele + ", ";
+                listeVehiculesDeCetteCouleur.push(vehicule);
+            }
         });
-        console.log(messageListeVoituresDeCetteCouleur);
-        return tableauVoitureDeCetteCouleur;
+        return listeVehiculesDeCetteCouleur;
     }
     get nom() {
         return this._nom;
@@ -43,6 +67,18 @@ class Garage {
     }
     set liste_voitures(value) {
         this._liste_voitures = value;
+    }
+    get liste_motos() {
+        return this._liste_motos;
+    }
+    set liste_motos(value) {
+        this._liste_motos = value;
+    }
+    get liste_camions() {
+        return this._liste_camions;
+    }
+    set liste_camions(value) {
+        this._liste_camions = value;
     }
 }
 exports.Garage = Garage;

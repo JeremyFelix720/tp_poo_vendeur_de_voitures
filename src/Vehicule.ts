@@ -7,15 +7,17 @@ export abstract class Vehicule {
     private _kilometrage: number
     private _prix: number
     private _annee_mise_en_circulation: number
+    private _typeVehicule: string
 
-    constructor(marque: string, modele: string, immatriculation: string, couleur: string, kilometrage: number, prix: number, annee_mise_en_circulation: number) {
+    constructor(marque: string, modele: string, immatriculation: string, couleur: string, kilometrage: number, prix: number, annee_mise_en_circulation: number, typeVehicule: string) {
         this._marque = marque;
-        this._modele = modele
-        this._immatriculation = immatriculation
-        this._couleur = couleur
-        this._kilometrage = kilometrage
-        this._prix = prix
-        this._annee_mise_en_circulation = annee_mise_en_circulation
+        this._modele = modele;
+        this._immatriculation = immatriculation;
+        this._couleur = couleur;
+        this._kilometrage = kilometrage;
+        this._prix = prix;
+        this._annee_mise_en_circulation = annee_mise_en_circulation;
+        this._typeVehicule = typeVehicule;
     }
 
     public get marque(): string {
@@ -65,5 +67,12 @@ export abstract class Vehicule {
     }
     public set annee_mise_en_circulation(value: number) {
         this._annee_mise_en_circulation = value
+    }
+
+    public get typeVehicule(): string {
+        return this._typeVehicule
+    }
+    public set typeVehicule(value: string) {
+        this._typeVehicule = value
     }
 }
